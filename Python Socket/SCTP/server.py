@@ -24,7 +24,7 @@ while True:
 	client_socket,addr = server_socket.accept()
 	print('GOT CONNECTION FROM:',addr)
 	if client_socket:
-		vid = cv2.VideoCapture(0)
+		vid = cv2.VideoCapture('C:\\Users\\jerie\\OneDrive\\Desktop\\apa itu blockchain.mp4')#change videocapture(0) for using webcam
 		
 		while(vid.isOpened()):
 			img,frame = vid.read()
