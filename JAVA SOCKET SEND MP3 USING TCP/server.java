@@ -3,69 +3,42 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 import java.io.*;
 
 public class server {
+
     public static void main(String[] args) throws IOException {
-        ServerSocket ss=new ServerSocket(4333);
-        System.out.println("server started");
-        
+        //CREATE SOCKET
+        ServerSocket ss = new ServerSocket(4333);
+        System.out.println("[SERVER STARTED]");
+
         File file = new File("art.wav");
         int fileLength = (int) file.length();
-        System.out.println("FILE LENGTH: "+ fileLength);
-        
-        Socket s=ss.accept();
-        
-        
+        System.out.println("[FILE LENGTH]: " + fileLength);
+
+        //WAIT FOR CONENCTION AND ACCEPT SOCKET WHEN IT RECEIVED CONNECTION
+        Socket s = ss.accept();
+
+        //FILE INPUT STREAM (READ BYTES FROM A FILE AND PLACE IT INSIDE BUFFER)
         FileInputStream fr = new FileInputStream(file);
-        OutputStream os = s.getOutputStream();
         
-        byte buff[]  = new byte[65536];
+        //READ BYTES FROM BUFFER AND PLACED IT INTO SOCKET OUTPUT STREAM
+        OutputStream os = s.getOutputStream();
+
+        //BUFFER READ-WRITE
+        byte buff[] = new byte[50000];
         int len;
         while ((len = fr.read(buff)) != -1) {
-            os.write(buff, 0, len);
+            System.out.println("[BYTE LENGTH SENT]: " + len);
+            os.write(buff, 0, buff.length);
         }
-        
-        /*
-        fr.read(buff,0,buff.length);
-        os.write(buff);
-        */
-        
-        System.out.println("upload successfull");
-        
 
-        
-        
+        System.out.println("[UPLOAD SUCCESSFULL]\n");
+        //CLOSE SOCKET
+        s.close();
+        System.out.println("[SOCKET CLOSED]\n");
+
     }
 
 }
-
-
-/*
- FileInputStream fr = new FileInputStream("C:\\Users\\jerie\\OneDrive\\Desktop\\MP3 TCP\\test.txt");
-        byte buff[]  = new byte[2048];
-        fr.read(buff,0,buff.length);
-
-        OutputStream os = s.getOutputStream();
-        os.write(buff,0,buff.length);
-
-------------------
-BufferedInputStream bufIn=new BufferedInputStream(s.getInputStream());
-        File file=new File("music.mp3");
-        PrintStream ps=new PrintStream(new FileOutputStream(file),true);
-        
-        byte[]buff=new byte[1024];
-        int len=-1;
-        while((len=bufIn.read(buff))!=-1) {
-                ps.write(buff, 0, len);
-        }
-        
-        PrintStream psout=new PrintStream(s.getOutputStream(),true);
-        psout.println("upload successfull");
-
-        ss.close();
-        s.close();
-        ps.close();
-*/
