@@ -1,8 +1,9 @@
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+//import java.io.BufferedInputStream;
+//import java.io.FileOutputStream;
+//import java.io.PrintStream;
+
 import java.io.IOException;
-import java.io.PrintStream;
+import java.io.File;
 import java.net.*;
 import java.io.*;
 
@@ -13,7 +14,7 @@ public class server {
         ServerSocket ss = new ServerSocket(4333);
         System.out.println("[SERVER STARTED]");
 
-        File file = new File("art.wav");
+        File file = new File("jinggle.wav");
         int fileLength = (int) file.length();
         System.out.println("[FILE LENGTH]: " + fileLength);
 

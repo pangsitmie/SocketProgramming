@@ -10,15 +10,17 @@ import sun.audio.AudioPlayer;
 import javax.swing.JOptionPane;
 
 
-public class client {
 
-    
-    public static void main(String[] args) throws UnknownHostException, IOException {
+public class client {
+    public static void main(String[] args) throws UnknownHostException, IOException, Throwable {
         //FILE NAME
         String filename = "C:\\java_buffer\\newart.wav";
         
         //SOCKET
+        //Socket ss = new Socket("10.0.2.15", 4333);        
         Socket ss = new Socket("192.168.56.1", 4333);
+
+        
         System.out.println("[CLIENT STARTED]");
 
         //INPUT STREAM (GET FROM SOCKET)
@@ -29,6 +31,7 @@ public class client {
 
         //BUFFER READ AND WRITE
         byte buff[] = new byte[50000];
+        
         int len;
         while ((len = is.read(buff)) !=-1) {
             System.out.println("[BYTE LENGTH SENT]: " + len);
@@ -41,13 +44,15 @@ public class client {
         System.out.println("[SOCKET CLOSED]\n");
 
         //PLAY THE MUSIC
-        System.out.println("[PLAYING MUSIC]");
-        playMusic(filename);
-        
         
         
 
+        System.out.println("[PLAYING MUSIC]");
+        playMusic(filename);        
     }
+
+
+    
     
     //PLAY MUSIC VOID
     public static void playMusic (String filepath){
